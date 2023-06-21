@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Belajar React Js</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel Script -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      .container {
+        width: 100px;
+        height: auto;
+      }
+
+      .flex_display {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .btn_reset {
+        display: flex;
+        justify-content: center;
+      }
+
+      .margin {
+        /* margin-right: 20px; */
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+
+      function Header({ name }) {
+        return <h1>Ayo Belajar {name}. 🚀</h1>;
+      }
+
+      function Button({ text_button, disabled, on_click }) {
+        return (
+          <button disabled={disabled} onClick={on_click} className="margin">
+            {text_button}
+          </button>
+        );
+      }
+
+      function Text({ text }) {
+        return <span className="margin">{text}</span>;
+      }
+
+      function HomePage() {
+        const [counter, setCounter] = React.useState(0);
+        const [disabled, setDisabled] = React.useState("");
+        const [reset, setReset] = React.useState("disabled");
+
+        function handleClickTambah() {
+          if (counter == 10) {
+            setCounter("Done!");
+            setDisabled("disabled");
+            setReset("");
+          } else {
+            setCounter(counter + 1);
+            setDisabled("");
+          }
+        }
+
+        function handleClickKurang() {
+          if (counter == 0) {
+            setCounter("Done!");
+            setDisabled("disabled");
+            setReset("");
+          } else {
+            setCounter(counter - 1);
+            setDisabled("");
+          }
+        }
+
+        function handleClickReset() {
+          setCounter(0);
+          setDisabled("");
+          setReset("disabled");
+        }
+
+        return (
+          <div>
+            <Header name="React" />
+            <div className="container">
+              <div className="flex_display">
+                <Button
+                  text_button="-"
+                  disabled={disabled}
+                  on_click={handleClickKurang}
+                />
+                <Text text={counter} />
+                <Button
+                  text_button="+"
+                  disabled={disabled}
+                  on_click={handleClickTambah}
+                />
+              </div>
+              <div className="btn_reset">
+                <Button
+                  text_button="Reset"
+                  disabled={reset}
+                  on_click={handleClickReset}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      root.render(<HomePage />);
+    </script>
+  </body>
+</html>
